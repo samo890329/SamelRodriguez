@@ -1,0 +1,90 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	      http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	      version="2.5">	
+
+	<display-name>SpringWeb</display-name>
+	
+	<!-- Configures the location of various Spring related configuration files -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml, /WEB-INF/mvc-dispatcher-servlet.xml</param-value>
+	</context-param>
+	
+	<!--  Configures Spring Context Listener to do all sort of preprations and house keeping before processing any request -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	
+	<!-- Registers DispatcherServlet from the Spring framework and instructs it to handle all web requests ending with ".html" -->
+	<servlet>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>mvc-dispatcher</servlet-name>
+		<url-pattern>/</url-pattern>
+		<!-- 
+		 - Esta es la Terminacion que Tendra Cada Pagina en la URL.
+		   Ejemplo: *.html, *.htm 
+		    *Pero esta Forma Demanda que Solo Coloquemos Esto '<url-pattern>*.html</url-pattern>'
+		     y que a Cada '@RequestMapping(value = "/jspdemo", method = RequestMethod.GET)' de cada Controller 
+		     le Coloquemos en Inicio en el Value la Diagonal Antes del Nombre sin Extencion, ya que se la Estamos
+		     Indicando Anteriormente.
+		     
+		    *El Valor Para una URL mas Larga Se Agrega Aqui en el Reuqest de cada Controller. Ejemplo:
+		    	'@RequestMapping(value = "/sasa/jspdemo", method = RequestMethod.GET)' de cada Controller 
+		 
+		 - De otra Forma solo puede Llevar la '/' y porteriormente en cada:
+		   @RequestMapping(value = "jspdemo.f", method = RequestMethod.GET) de cada Controller 
+		   Colocamos en la Propiedad Value el Texto que tendra en esa URL ese Request Mapping y
+		   Si Queremos o no la Extencion que Querramos Nosotros.
+		  
+		 - Se le Puede Agregar un Valor Extra Antes de la '/'. Ejemplo: '<url-pattern>#####/</url-pattern>'.
+		-->
+	</servlet-mapping>
+	
+	<!-- JSF mapping -->
+	<!-- Java Server Pages related configuration -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <!-- Map these files with JSF -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    	<servlet-mapping>
+    	<servlet-name>Faces Servlet</servlet-name>
+    	<url-pattern>*.jsf</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+	    <servlet-name>Faces Servlet</servlet-name>
+	    <url-pattern>*.faces</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+	    <servlet-name>Faces Servlet</servlet-name>
+	    <url-pattern>*.xhtml</url-pattern>
+  	</servlet-mapping>
+ 	
+ 	<!-- Welcome page -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>

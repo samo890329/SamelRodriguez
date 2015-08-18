@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ 	
+ 	<!--  Instructs the Spring to scan "com.samo.controller" package for Java classes capable of handling the client requests -->
+	<context:component-scan base-package="com.samo.controller" />
+ 	
+ 	<!-- Instructed Spring Framework for the annotations based configuration @Controller, @Service, @Repository -->
+ 	<context:annotation-config/>
+ 	
+ 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"  id="jsfViewResolver">
+        <property name="viewClass" value="org.springframework.faces.mvc.JsfView" />
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".xhtml" />
+    </bean>
+ 	
+ 	<!-- The response views to be sent to the client will be in the /WEB-INF/pages/ directory with the extension ".jsp" -->
+ 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix"><value>/WEB-INF/pages/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+ 
+ <!-- 
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/pages/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+  -->
+</beans>
